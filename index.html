@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="theme-color" content="#4285f4"/>
+  <!-- Primary theme color -->
+  <meta name="theme-color" content="#4285f4">
+  <!-- Safari-specific meta tag -->
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#4285f4" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+  <link rel="manifest" href="manifest.json"/>
+  <link rel="stylesheet" href="styles.css"/>
+  <link rel="apple-touch-icon" href="D:/Folders/VSCode/Class Project/icons/apple-touch-icon.png">
+  <title>To-Do List</title>
+</head>
+
+<body>
+  <div id="app">
+    <header>
+      <div class="logo">To-Do List</div>
+      <nav>
+        <button id="theme-toggle" aria-label="Toggle Theme"></button>
+        <button id="profile-btn" aria-label="Profile"><img src="profile.svg" alt="Profile" /></button>
+        <button id="logout-btn" class="hidden" aria-label="Logout">Logout</button>
+      </nav>
+    </header>
+    
+    <main>
+      <!-- Auth UI -->
+      <section id="auth-section">
+        <form id="login-form" class="card">
+          <h2>Login</h2>
+          <input type="email" id="login-email" placeholder="Email" required />
+          <input type="password" id="login-password" placeholder="Password" required />
+          <button type="submit">Login</button>
+          <p>Don't have an account? <a href="#" id="show-signup">Sign up</a></p>
+        </form>
+        <form id="signup-form" class="card hidden">
+          <h2>Sign Up</h2>
+          <input type="email" id="signup-email" placeholder="Email" required />
+          <input type="password" id="signup-password" placeholder="Password" required />
+          <input type="text" id="signup-nickname" placeholder="Nickname" required maxlength="16" />
+          <button type="submit">Sign Up</button>
+          <p>Already have an account? <a href="#" id="show-login">Login</a></p>
+        </form>
+      </section>
+      <!-- Main App UI -->
+      <section id="todo-section" class="hidden">
+        <div class="toolbar">
+          <button id="add-task-btn" aria-label="Add Task">＋</button>
+          <input type="text" id="search-bar" placeholder="Search tasks..." />
+          <select id="filter-priority">
+            <option value="">All Priorities</option>
+            <option value="high">High</option>
+            <option value="medium">Medium</option>
+            <option value="low">Low</option>
+          </select>
+          <select id="sort-tasks">
+            <option value="date">Sort by Date</option>
+            <option value="priority">Sort by Priority</option>
+            <option value="completed">Sort by Completed</option>
+          </select>
+        </div>
+        <div class="calendar-wrapper">
+          <div id="calendar"></div>
+        </div>
+        <div id="task-list"></div>
+      </section>
+      <!-- Modals -->
+      <div id="modal-backdrop" class="hidden"></div>
+      <!-- Add/Edit Task Modal -->
+      <div id="task-modal" class="modal card hidden">
+        <form id="task-form">
+          <h2 id="task-modal-title">Add Task</h2>
+          <input type="text" id="task-title" placeholder="Task Title" required maxlength="64"/>
+          <textarea id="task-desc" placeholder="Description"></textarea>
+          <input type="date" id="task-date" required />
+          <input type="time" id="task-time" />
+          <div class="row">
+            <label>Priority:
+              <select id="task-priority">
+                <option value="low">Low</option>
+                <option value="medium" selected>Medium</option>
+                <option value="high">High</option>
+              </select>
+            </label>
+            <label>Labels:
+              <input type="text" id="task-labels" placeholder="Comma-separated"/>
+            </label>
+          </div>
+          <div class="row">
+            <label><input type="checkbox" id="task-reminder"/> Reminder</label>
+          </div>
+          <div class="modal-actions">
+            <button type="submit" id="save-task-btn">Save</button>
+            <button type="button" id="cancel-task-btn">Cancel</button>
+          </div>
+        </form>
+      </div>
+      <!-- Profile Modal -->
+      <div id="profile-modal" class="modal card hidden">
+        <form id="profile-form">
+          <h2>Edit Profile</h2>
+          <label>
+            Nickname:
+            <input type="text" id="profile-nickname" maxlength="16" required />
+          </label>
+          <div class="modal-actions">
+            <button type="submit">Save</button>
+            <button type="button" id="profile-cancel">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </main>
+    
+    <footer>
+      <small>© 2025 To-Do List App</small>
+    </footer>
+  </div>
+  
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+  <!-- Main JS -->
+  <script src="app.js"></script>
+</body>
+</html>
